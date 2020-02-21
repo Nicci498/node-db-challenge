@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
         res.status(200).json(projects)
     })
     .catch( () => {
-        res.status(500).json({message: 'Cannot get projects'})
+        res.status(500).json({message: 'Failed to get projects'})
     })
 })
 
@@ -24,19 +24,19 @@ router.get("/:id", (req,res) => {
             }
         })
         .catch(() => {
-            res.status(500).json({message: 'Cannot get project'})
+            res.status(500).json({message: 'Failed to get project'})
         })
 })
 
 
-router.post('/', (req, res) => {
-    project.add(req.body)
-    .then(project => {
-        res.status(201).json(project)
-    })
-    .catch(() => {
-        res.status(500).json({ message: 'Failed to add Project'})
-    })
-})
+router.post("/", async (req, res, next) => {
+    try {
+      const newproject = await project.add(req.body);
+      res.status(201).json(newproject);
+    } catch (err) {
+      next(err);
+    }
+  });
+
 
 module.exports = router;

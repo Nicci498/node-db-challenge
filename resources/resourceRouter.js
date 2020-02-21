@@ -9,7 +9,17 @@ router.get('/', (req, res) =>{
         res.status(200).json(resources)
     })
     .catch(err =>{
-        res.status(500).json({error:'Failed to get resources'})
+        res.status(500).json({message:'Failed to get resources'})
+    })
+})
+
+router.post("/", (req,res) => {
+    Data.add(req.body)
+    .then(resource => {
+        res.status(201).json(resource)
+    })
+    .catch(()=> {
+        res.status(500).json({ message: "Failed to add resource"})
     })
 })
 

@@ -15,7 +15,9 @@ function getByID(id){
 }
 
 
-function add(project){
+async function add(project) {
+    const [id] = await db("projects").insert(project);
     return db("projects")
-    .insert(project)
-}
+      .where({ id })
+      .first();
+  }
