@@ -12,8 +12,8 @@ server.use(express.json());
 server.use(helmet());
 server.use(morgan('dev'));
 
-//server.use('/tasks', taskRouter);
-//server.use('/projects', projectRouter);
+server.use('/tasks', taskRouter);
+server.use('/projects', projectRouter);
 server.use('/resources', resourceRouter)
 
 module.exports = server
